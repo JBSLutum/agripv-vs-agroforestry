@@ -10,7 +10,7 @@ library(vctrs)
 library(tidyverse)
 
 
-input_estimates_two <- read.csv("input_estimates_project.csv",sep = ";", header = TRUE)
+input_estimates_two <- read.csv("input_estimates_project.csv",sep = ",", header = TRUE)
 
 # input_estimates_two[, c(2,4)] <- sapply(input_estimates_two[, c(2,4)], as.numeric)
 # varnames <- c(colnames(input_estimates_two))
@@ -47,7 +47,7 @@ yield_loss_photovoltaic         <- vv(var_mean = yield_loss_pv, var_CV, n_years)
 #costs_agroforestry
 
 investment_cost_agroforestry    <- vv(var_mean = investment_cost_af, var_CV, n_years)
-anual_cost_agroforestry        <- vv(var_mean = anual_cost_af, var_CV, n_years)
+anual_cost_agroforestry        <- vv(var_mean = annual_cost_af, var_CV, n_years)
 yield_loss_agroforestry         <- vv(var_mean = yield_loss_af, var_CV, n_years)
 
 # some trials wit rnorm()
@@ -177,13 +177,13 @@ return(list(Gain_photovoltaic = gain_intervention_pv,
 
 # Monte
 
-# Monte estimate_read_csv path 
-# mcSimulation_results <- decisionSupport::mcSimulation(
-#   estimate = decisionSupport::estimate_read_csv("input_estimates_project.csv"),
-#   model_function = agrivp_vs_agroforestry_function_two(),
-#   numberOfModelRuns = 200,
-#   functionSyntax = "plainNames"
-# )
+ #Monte estimate_read_csv path 
+mcSimulation_results <- decisionSupport::mcSimulation(
+   estimate = decisionSupport::estimate_read_csv("input_estimates_project.csv"),
+   model_function = agrivp_vs_agroforestry_function_two(),
+   numberOfModelRuns = 200,
+   functionSyntax = "plainNames"
+ )
 
 # Monte with estimate() 
 example_mc_simulation <- mcSimulation(estimate = as.estimate(input_estimates_two),
